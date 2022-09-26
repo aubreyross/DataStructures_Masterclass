@@ -1,0 +1,212 @@
+class Node {
+	// constructor
+	constructor(value) {
+		this.value = value;
+		this.next = null
+	}
+}
+// linkedlist class
+class LinkedList {
+	constructor() {
+		this.head = null;
+		this.length = 0;
+	}
+
+	// adds an value at the end of list
+	add(value) {
+		// creates a new node
+		var node = new Node(value);
+
+		// to store current node
+		var current;
+
+		// if list is Empty add the value and make it head
+		if (this.head == null)
+			this.head = node;
+		else {
+			current = this.head;
+
+			// iterate to the end of the list
+			while (current.next) {
+				current = current.next;
+			}
+
+			// add node
+			current.next = node;
+		}
+		this.length++;
+	}
+
+	// insert value at the position index of the list
+	insertAt(value, index) {
+		if (index < 0 || index > this.length)
+			return console.log("Please enter a valid index.");
+		else {
+			// creates a new node
+			var node = new Node(value);
+			var curr, prev;
+
+			curr = this.head;
+
+			// add the value to the first index
+			if (index == 0) {
+				node.next = this.head;
+				this.head = node;
+			} else {
+				curr = this.head;
+				var it = 0;
+
+				// iterate over the list to find the position to insert
+				while (it < index) {
+					it++;
+					prev = curr;
+					curr = curr.next;
+				}
+
+				// adding an value
+				node.next = curr;
+				prev.next = node;
+			}
+			this.length++;
+		}
+	}
+
+	// removes an value from the specified location
+	removeFrom(index) {
+		if (index < 0 || index >= this.length)
+			return console.log("Please Enter a valid index");
+		else {
+			var curr, prev, it = 0;
+			curr = this.head;
+			prev = curr;
+
+			// deleting first value
+			if (index === 0) {
+				this.head = curr.next;
+			} else {
+				// iterate over the list to the position to removce an value
+				while (it < index) {
+					it++;
+					prev = curr;
+					curr = curr.next;
+				}
+
+				// remove the value
+				prev.next = curr.next;
+			}
+			this.length--;
+
+			// return the remove value
+			return curr.value;
+		}
+	}
+
+	// removes a given value from the list
+	removevalue(value) {
+		var current = this.head;
+		var prev = null;
+
+		// iterate over the list
+		while (current != null) {
+			// comparing value with current value if found then remove the and return true
+			if (current.value === value) {
+				if (prev == null) {
+					this.head = current.next;
+				} else {
+					prev.next = current.next;
+				}
+				this.length--;
+				return current.value;
+			}
+			prev = current;
+			current = current.next;
+		}
+		return -1;
+	}
+
+
+	// finds the index of value
+	indexOf(value) {
+		var count = 0;
+		var current = this.head;
+
+		// iterate over the list
+		while (current != null) {
+			// compare each value of the list with given value
+			if (current.value === value)
+				return count;
+			count++;
+			current = current.next;
+		}
+
+		// not found
+		return -1;
+	}
+
+	// checks the list for empty
+	isEmpty() {
+		return this.length == 0;
+	}
+
+	// gives the length of the list
+	length_of_list() {
+		console.log(this.length);
+	}
+
+
+	// prints the list items
+	printList() {
+		var curr = this.head;
+		var str = "";
+		while (curr) {
+			str += curr.value + " ";
+			curr = curr.next;
+		}
+		console.log(str);
+	}
+
+}
+
+// creating an object for the
+// Linkedlist class
+var ll = new LinkedList();
+
+// testing isEmpty on an empty list
+// returns true
+console.log(ll.isEmpty());
+
+// adding value to the list
+ll.add(1);
+
+// prints 10
+ll.printList();
+
+// returns 1
+console.log(ll.length_of_list());
+
+// adding more values to the list
+ll.add(3);
+ll.add(5);
+ll.add(7);
+
+// returns 1 3 5 7 
+ll.printList();
+
+// prints 7 from the list
+console.log("is value removed ?" + ll.removevalue(7));
+
+// prints 1 3 5 
+ll.printList();
+
+// returns 1
+console.log("Index of 3 " + ll.indexOf(3));
+
+// insert 60 at second position
+// ll contains 1 3 60 5 7
+ll.insertAt(60, 2);
+
+ll.printList();
+
+// returns false
+console.log("is List Empty ? " + ll.isEmpty());
+

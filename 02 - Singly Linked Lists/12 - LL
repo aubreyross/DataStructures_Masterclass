@@ -1,0 +1,49 @@
+//not sure if this works
+class Node {
+	constructor(value) {
+		this.value = value;
+		this.next = null
+	}
+}
+
+class LinkedList {
+	constructor() {
+		this.head = null;
+		this.length = 0;
+	}
+
+	add(value) {
+		var node = new Node(value);
+		var current;
+		if (this.head == null)
+			this.head = node;
+		else {
+			current = this.head;
+            
+			while (current.next) {
+				current = current.next;
+			}
+			current.next = node;
+		}
+		this.length++;
+	}
+
+	printList() {
+		var curr = this.head;
+		var str = "";
+		while (curr) {
+			str += curr.value + " ";
+			curr = curr.next;
+		}
+		console.log(str);
+	}
+}
+
+var ll = new LinkedList();
+
+ll.add(1);
+ll.add(3);
+ll.add(5);
+ll.add(7);
+
+ll.printList();
